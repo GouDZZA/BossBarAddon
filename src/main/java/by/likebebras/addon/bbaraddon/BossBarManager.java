@@ -22,6 +22,9 @@ public class BossBarManager {
 
     public void deleteBossBar(String id){
         KeyedBossBar bar = barMap.remove(id);
+
+        if (bar == null) return;
+
         bar.removeAll();
 
         Bukkit.removeBossBar(bar.getKey());

@@ -12,8 +12,11 @@ import org.by1337.blib.command.argument.ArgumentDouble;
 import org.by1337.blib.command.argument.ArgumentString;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class RadiusCmd extends Command<Event> {
 
@@ -30,13 +33,17 @@ public class RadiusCmd extends Command<Event> {
                 double rad = (Double) args.getOrThrow("radius", "В комманде не указан радиус, либо указан неверно (args №2)");
 
                 KeyedBossBar bar = manager.getBossBar(id);
-                List<Player> players = new ArrayList<>();
 
-                Location loc = Validate.notNull(e.getAirDrop().getLocation(), "Невозможная ошибка (словил == герой)");
+                if (bar == null) return;
 
-                loc.getWorld().getNearbyEntities(loc, rad, rad, rad).forEach(entity -> {
-                    if (entity instanceof Player) players.add((Player) entity);
-                });
+                Location loc = Validate.notNull(e.getAirDrop().getLocation(), "Аир не заспавниля (увы)");
+
+                Set<Player> players = loc.
+                        getWorld().getNearbyEntities(loc, rad, rad, rad)
+                        .stream()
+                        .filter(en -> en instanceof Player)
+                        .map(en -> (Player) en)
+                        .collect(Collectors.toSet());
 
                 bar.getPlayers().forEach(p -> {
                     if (!players.contains(p) || !p.isOnline()) bar.removePlayer(p);

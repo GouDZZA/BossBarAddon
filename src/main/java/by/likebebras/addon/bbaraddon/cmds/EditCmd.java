@@ -28,6 +28,9 @@ public class EditCmd extends Command<Event> {
             String actions = (String) args.getOrThrow("actions", "в комманде не указано значение для действия (arg №2) боссбара");
 
             KeyedBossBar bar = manager.getBossBar(id);
+
+            if (bar == null) return;
+
             for (String action : actions.split(" \\[AND] ")) {
                 action(action, bar);
             }
