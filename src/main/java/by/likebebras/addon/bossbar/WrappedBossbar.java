@@ -34,7 +34,6 @@ public final class WrappedBossbar {
 
 
     @Getter private String          title;
-//    @Getter private String progressString;
 
 
     @Setter @Getter private double     radius = -1;
@@ -84,7 +83,7 @@ public final class WrappedBossbar {
         }
 
         if (title != null && !title.isEmpty()){
-            setTitle(_air.replace(title));
+            updateTitle();
         }
 
         switch (progressType){
@@ -93,6 +92,10 @@ public final class WrappedBossbar {
             case TIME_TO_END   -> setProgress(_air.replace("{time_to_end}")  , _air.replace("{time_to_end_const}"))  ;
             case STATIC -> setProgress(staticValue);
         }
+    }
+
+    public void updateTitle(){
+        _bar.setTitle(_air.replace(title));
     }
 
 
@@ -107,6 +110,11 @@ public final class WrappedBossbar {
     }
     public void removeAllPlayers(){
         new HashSet<>(_bar.getPlayers()).forEach(this::removePlayer);
+    }
+
+    public void setTitle(String text){
+        title = text.replace("[", "{").replace("]", "}");
+        updateTitle();
     }
 
     private void setProgress(String... progressStrings){
@@ -147,10 +155,6 @@ public final class WrappedBossbar {
 
     public void addFlag(BarFlag flag){
         _bar.addFlag(flag);
-    }
-
-    public void setTitle(String title){
-        _bar.setTitle(title);
     }
 
     public void setStyle(BarStyle style){
