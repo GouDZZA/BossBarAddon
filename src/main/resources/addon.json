@@ -1,9 +1,9 @@
 {
   "name": "BossBarAddon",
-  "version": "1.0",
-  "main": "by.likebebras.addon.bbaraddon.BossBarAddon",
+  "version": "1.1.0",
+  "main": "by.likebebras.addon.bossbar.Addon",
   "authors": [
     "LikeBebras"
   ],
-  "description": "[BOSSBAR] [REMOVE] <[id]> || [BOSSBAR] [CREATE] <[id]> || [BOSSBAR] [EDIT] <[id]> <value|color|style|text> <[value]> || [BOSSBAR] [ADD] <id> <nickname> || [BOSSBAR] [REMOVEALL]"
+  "description": ""
 }
